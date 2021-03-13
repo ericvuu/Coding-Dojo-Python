@@ -1,0 +1,47 @@
+
+h1 {
+  color: cadetblue;
+}
+
+#forms-container{
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.forms-box {
+  width: 44%;
+  display: inline-block;
+  text-align: start;
+  padding-left: 2%;
+}
+
+.forms-box button {
+  display: block;
+
+}
+
+#roster-container {
+  width: 25%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#roster-container h2 {
+  width: 50%;
+  text-align: center;
+}
+
+.dojo_name {
+  list-style-type: none;
+  margin: 5px;
+  font-weight: bold;
+}
+
+.delete_dojo {
+  margin-left: 5px;
+}
+
+.delete_dojo a {
+  text-decoration: none;
+}

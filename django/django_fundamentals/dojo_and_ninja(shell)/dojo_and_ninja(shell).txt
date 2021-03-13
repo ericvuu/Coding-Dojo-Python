@@ -1,0 +1,69 @@
+python manage.py makemigrationsfrom
+python manage.py migrate
+
+python manage.py shell
+
+from main.models import Dojo, Ninja
+
+dojo1 = Dojo.objects.create(name="American Top Team", city="Coconut Creek", state="FL")
+dojo2 = Dojo.objects.create(name="Team Oyama", city="Irvine", state="CA")
+dojo3 = Dojo.objects.create(name="Kings MMA", city="Huntington Beach", state="CA")
+
+dojo1.save()
+dojo2.save()
+dojo3.save()
+
+all_dojos = Dojo.objects.all()
+all_dojos.delete()
+
+dojo4 = Dojo.objects.create(name="Rise Muay Thai", city="Orange", state="CA")
+dojo5 = Dojo.objects.create(name="10th Planet Jiu Jitsu", city="Costa Mesa", state="CA")
+dojo6 = Dojo.objects.create(name="The Alliance Training Center", city="Chula Vista", state="CA")
+
+dojo4.save()
+dojo5.save()
+dojo6.save()
+
+this_dojo = Dojo.objects.get(id=4)
+ninja1 = Ninja.objects.create(dojo=this_dojo,first_name="Bob", last_name="Buff")
+ninja2 = Ninja.objects.create(dojo=this_dojo,first_name="Ricky", last_name="Bobby")
+ninja3 = Ninja.objects.create(dojo=this_dojo,first_name="Tina", last_name="Thomas")
+
+ninja1.save()
+ninja2.save()
+ninja3.save()
+
+dojo2 = Dojo.objects.get(id=5)
+
+>>> ninja4 = Ninja.objects.create(dojo=dojo2,first_name="Nina", last_name="Smith")
+>>> ninja5 = Ninja.objects.create(dojo=dojo2,first_name="Mike", last_name="Smith")
+>>> ninja6 = Ninja.objects.create(dojo=dojo2,first_name="Carol", last_name="Kerry")
+
+ninja4.save()
+ninja5.save()
+ninja6.save()
+
+dojo3 = Dojo.objects.get(id=6)
+
+ninja7 = Ninja.objects.create(dojo=dojo3,first_name="Nathan", last_name="Doe")
+ninja8 = Ninja.objects.create(dojo=dojo3,first_name="Nathan", last_name="Strong")
+ninja9 = Ninja.objects.create(dojo=dojo3,first_name="Diego", last_name="Von")
+
+ninja7.save()
+ninja8.save()
+ninja9.save()
+
+first_dojo = Dojo.objects.get(id=4)
+rise_ninjas = Ninja.objects.filter(dojo=first_dojo)
+print(rise_ninjas)
+
+last_dojo = Dojo.objects.last()
+alliance_ninjas = Ninja.objects.filter(dojo=last_dojo)
+
+last_ninja = Ninja.objects.last()
+last_ninjas_dojo = last_ninja.dojo.name
+print(last_ninjas_dojo)
+
+dojo4 = Dojo.objects.create(name="AKA", city="San Jose", state="CA", desc="world-class")
+dojo4.save()
+print(dojo4.name)

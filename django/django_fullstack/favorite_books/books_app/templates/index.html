@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Favorite Books</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-3 d-flex justify-content-center">
+        {% if messages %}
+        <ul>
+          {% for message in messages %}
+          <li class="h4">{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-3 d-flex justify-content-center">
+        <!-- REGISTRATION FORM -->
+        <form action="/process_registration" method="post">
+          <h2 class="mt-4">Registration</h2>
+          {% csrf_token %}
+          <div class="form-group mt-3">
+            <label for="registration_first_name">First Name</label>
+            <input type="text" name="registration_first_name">
+          </div>
+          <div class="form-group mt-3">
+            <label for="registration_last_name">Last Name</label>
+            <input type="text" name="registration_last_name">
+          </div>
+          <div class="form-group mt-3">
+            <label for="registration_email">Email</label>
+            <input type="email" name="registration_email">
+          </div>
+          <div class="form-group mt-3">
+            <label for="registration_password">Password</label>
+            <input type="password" name="registration_password">
+          </div>
+          <div class="form-group mt-3">
+            <label for="confirm_registration_password">Confirm PW</label>
+            <input type="password" name="confirm_registration_password">
+          </div>
+          <div class="col text-center mt-3">
+          <button type="submit" class="btn btn-primary">Register</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-3 d-flex justify-content-center">
+          <!-- LOGIN FORM -->
+          <form action="/process_login" method="post">
+          <h2 class="mt-4">Login</h2>
+          {% csrf_token %}
+          <div class="form-group mt-3">
+            <label for="login_email">Email</label>
+            <input type="email" name="login_email">
+          </div>
+          <div class="form-group mt-3">
+            <label for="login_password">Password</label>
+            <input type="password" name="login_password">
+          </div>
+          <div class="col text-center mt-3">
+          <button type="submit" class="btn btn-primary">Login</button>
+          </div>
+        </form>
+      </div>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

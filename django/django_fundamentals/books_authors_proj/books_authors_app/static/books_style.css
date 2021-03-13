@@ -1,0 +1,57 @@
+
+p {
+  font-size: 1.2rem;
+}
+
+/* Book Home */
+#books_home_container {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#books_home_container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+#book_form{
+  display: inline-block;
+  width: 35%;
+  margin-left: auto;
+  margin-right: auto;
+  justify-self: center;
+}
+
+#book_table_container{
+  display: inline-block;
+  width: 35%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#book_table_container table, td, th{
+  border: 2.5px solid black;
+  border-collapse: collapse;
+  padding: 10px;
+}
+
+#book_textarea {
+  width: 250px;
+  height: 90px;
+  resize: none;
+}
+
+#desc-text {
+  vertical-align: top;
+}
+
+/* View Books */
+#desc_title {
+  display: inline-block;
+}
+
+#book_desc-text{
+  display: inline-block;
+}

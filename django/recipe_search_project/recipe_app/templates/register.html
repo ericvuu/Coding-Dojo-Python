@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <title>Recipe App!</title>
+</head>
+<body>
+    <div class="container-fluid mt-1">
+    <nav class="navbar">
+      <div class="col">
+        <h2>Come join us - Let's make something good!</h2>
+      </div>
+      <div class="col-4 text-end">
+        <a class="h4 text-decoration-none mx-2" href="{% url 'recipe_app:home' %}">Home</a>
+        <a class="h4 text-decoration-none mx-2" href="{% url 'recipe_app:sign_in_page' %}">Sign-in</a>
+      </div>
+    </nav>
+      <div class="container">
+        {% if messages %}
+            <div class="row">
+                {% for message in messages %}
+
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <p class="alert alert-danger" role="alert">{{ message }}</p>
+                    {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <p class="alert alert-success" role="alert">{{ message }}</p>
+                    {% endif %}
+
+            {% endfor %}
+            </div>
+        {% endif %}
+        <div class="col-12 col-md-3 mx-auto my-auto">
+          <!-- REGISTRATION FORM -->
+        <form action="{% url 'recipe_app:register' %}" method="post">
+          <h2 class="mt-4">Registration</h2>
+          {% csrf_token %}
+          <div class="form-group mt-3">
+            <input type="text" name="registration_first_name" class="form-control form-control-lg" placeholder="First Name">
+          </div>
+          <div class="form-group mt-3">
+            <input type="text" name="registration_last_name" class="form-control form-control-lg" placeholder="Last Name">
+          </div>
+          <div class="form-group mt-3">
+            <input type="email" name="registration_email" class="form-control form-control-lg" placeholder="Email">
+          </div>
+          <div class="form-group mt-3">
+            <input type="password" name="registration_password" class="form-control form-control-lg" placeholder="Password">
+          </div>
+          <div class="form-group mt-3">
+            <input type="password" name="confirm_registration_password" class="form-control form-control-lg" placeholder="Confirm Password">
+          </div>
+          <div class="col text-center mt-3">
+          <button type="submit" class="btn btn-success btn-lg btn-block">Register</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

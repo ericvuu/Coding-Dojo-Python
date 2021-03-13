@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'edit_show.css'%}" />
+    <title>Edit {{current_show.title}}</title>
+  </head>
+  <body>
+    <p id="go_back"><a href="/shows">Go Back</a></p>
+    <h1>Edit {{current_show.title}}</h1>
+    <div id="form_container">
+    <form action="/shows/{{ current_show.id }}/edit/process" method="post">
+      {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+        {% endif %}
+      {% csrf_token %}
+      <label for="edit_show_title">Title</label>
+      <input type="text" name="edit_show_title" id="edit_show_title" />
+      <p>
+        <label for="edit_show_network">Network</label>
+        <input type="text" name="edit_show_network" id="edit_show_network" />
+        <label for="edit_show_release_date">Release Date</label>
+        <input type="date" name="edit_show_release_date" id="edit_show_release_date" />
+      </p>
+      <label for="edit_show_description">Descripton</label>
+      <textarea id="edit_show_description" name="edit_show_description"></textarea>
+      <button type="submit">Update</button>
+    </form>
+    </div>
+  </body>
+</html>

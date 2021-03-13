@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css'%}" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="container">
+      <div id="forms-container">
+        <div class="forms-box">
+          <!-- ADD DOJO FORM -->
+          <h2>Add a Dojo</h2>
+          <form action="/new_dojo" method="post">
+            {% csrf_token %}
+            <p>
+              <label for="dojo_name">Name</label>
+              <input type="text" name="dojo_name" />
+            </p>
+            <p>
+              <label for="dojo_city">City</label>
+              <input type="text" name="dojo_city" />
+            </p>
+            <p>
+              <label for="dojo_state">State</label>
+              <input type="text" name="dojo_state" />
+            </p>
+            <button type="submit">Add</button>
+          </form>
+        </div>
+        <!-- ADD NINJA FORM -->
+        <div class="forms-box">
+          <h2>Add a Ninja</h2>
+          <form action="/new_ninja" method="post">
+            {% csrf_token %}
+            <p>
+              <label for="ninja_first_name">First Name</label>
+              <input type="text" name="ninja_first_name" />
+            </p>
+            <p>
+              <label for="ninja_last_name">Last Name</label>
+              <input type="text" name="ninja_last_name" />
+            </p>
+            <p>
+              <label for="ninja_dojo">Dojo</label>
+              <select name="ninja_dojo">
+                {% for dojo in all_dojos %}
+                <option value="{{ dojo.id }}">{{ dojo.name }}</option>
+                {% endfor %}
+              </select>
+            </p>
+            <button type="submit">Add</button>
+          </form>
+        </div>
+      </div>
+      <div id="roster-container">
+        <div>
+          <h2>All the Dojos</h2>
+          <ul>
+            <!-- Loops through "all_dojos" key  and displays each dojo's name -->
+            {% for dojo in all_dojos %}
+            <li class="dojo_name">{{ dojo.name }} <a href="/delete/{{ dojo.id }}">Delete</a></li>
+            <ul>
+              <!-- Because the Dojo class has a "ninjas" field through a foreign key, we can access the ninjas of a given dojo through a reverse lookup -->
+              <!-- ninjas is the relate_name value connecting the Ninja class and Dojo class -->
+              {% for ninja in dojo.ninjas.all %}
+              <li>{{ ninja.first_name }} {{ ninja.last_name }}</li>
+              {% endfor %}
+            </ul>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

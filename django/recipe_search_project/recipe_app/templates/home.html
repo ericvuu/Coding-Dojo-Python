@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      {% load static %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/home.css' %}"
+    />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <title>Recipe App!</title>
+</head>
+<body>
+  <div class="container-fluid vh-100">
+    <!-- <div class="">
+      {% comment %} <div class="col-6">
+        <h2>Recipe App</h2>
+      </div>
+      <div class="col-6 text-end">
+        <a class="h4 text-decoration-none mx-2" href="{% url 'recipe_app:sign_in_page' %}">Sign-in</a>
+        <a class="h4 text-decoration-none mx-2" href="{% url 'recipe_app:registration_page' %}">Register</a>
+      </div>
+      {% endcomment %}
+    </div> -->
+    <div class="row align-items-center">
+      <div class="col my-auto">
+        <h1 class="display-1 text-center ">Welcome!</h1>
+        <div class="text-center m-4">
+          <p id="color-intro-text" class="display-5">What's in  your fridge? <br> Let's help you make something delicious out of it!</p>
+          <p class="display-6">[with help from the Spoonacular API :)]</p>
+          <a href="{% url 'recipe_app:sign_in_page' %}" class="btn btn-success btn-lg m-4" type="submit">
+            Sign In
+          </a>
+          <a href="{% url 'recipe_app:registration_page' %}" class="btn btn-success btn-lg m-4" type="submit">
+            Register
+          </a>
+        </div>
+      </div>
+    </div>
+    </div>
+</body>
+</html>

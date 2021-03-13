@@ -1,0 +1,37 @@
+#go_back{
+  font-size: 1.5rem;
+  margin-right: 10%;
+  text-align: end;
+}
+
+h1 {
+  text-align: center;
+}
+
+#edit_show_title {
+  width: 100%;
+  height: 25px;
+}
+
+#edit_show_network, #edit_show_release_date{
+  width: 35.5%;
+  height: 25px;
+}
+
+form{
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button {
+  margin: 5px;
+  display: block;
+}
+
+textarea {
+  display: block;
+  width: 100%;
+  height: 120px;
+  resize: none;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      :root{
+        --color1:{{color1}};
+        --color2:{{color2}};
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='my_style.css') }}"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <table id="gameboard">
+      {% for i in range(rows): %}
+      <tr class="row">
+        {% for j in range(columns): %}
+        <td class="square-color-{{(i + j) % 2 + 1}}"></td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

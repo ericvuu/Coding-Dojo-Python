@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'add_show.css'%}" />
+    <title>Add show</title>
+  </head>
+  <body>
+    <p id="go_back"><a href="/shows">Go Back</a></p>
+    <h1>Add a New Show</h1>
+    <div id="form_container">
+      <!-- Error Message -->
+      {% if messages %}
+      <ul class="error_message">
+        {% for message in messages %}
+        <li>
+          {{ message }}
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <form action="/shows/new/process_add_show" method="post">
+        {% csrf_token %}
+        <label for="new_show_title">Title</label>
+        <input type="text" name="new_show_title" id="new_show_title" />
+        <p>
+          <label for="new_show_network">Network</label>
+          <input type="text" name="new_show_network" id="new_show_network" />
+          <label for="new_show_release_date">Release Date</label>
+          <input
+            type="date"
+            name="new_show_release_date"
+            id="new_show_release_date"
+          />
+        </p>
+        <label for="new_show_description">Descripton</label>
+        <textarea
+          id="new_show_description"
+          name="new_show_description"
+        ></textarea>
+        <button type="submit">Create</button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+h1 {
+  color: blue;
+}
+
+#form-container {
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10%;
+  border: 5px solid black;
+}
+
+.form-element {
+  margin-top: 15px;
+}
+
+form {
+  padding: 70px 50px;
+  font-size: 18px;
+}
+
+textarea {
+  width: 250px;
+  height: 100px;
+}
+
+button{
+  display: block;
+  margin-left: 200px;
+}
+
+
+#response-container{
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10%;
+  border: 5px solid black;
+}
+
+li {
+  list-style-type: none;
+  padding: 5px;
+}

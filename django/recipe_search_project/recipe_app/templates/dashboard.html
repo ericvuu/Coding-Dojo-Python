@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+    <!-- FONTS LINK -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#mainFormSubmit").click(function (e) {
+          e.preventDefault();
+          $("h3").fadeOut();
+          $("#gallery").fadeOut();
+          $.ajax({
+            url: "/findRecipes",
+            method: "post",
+            data: $(this).parent().serialize(),
+            success: function (serverResponse) {
+              meals_available = serverResponse;
+              create_gallery(meals_available);
+              $("h3").fadeIn();
+              $("#gallery").fadeIn();
+              console.log(meals_available);
+            },
+          });
+        });
+
+        $("#add_ingredient").click(function (e) {
+          e.preventDefault();
+          $.ajax({
+            url: "/new_ingredient",
+            method: "post",
+            data: $("#tableForm").serialize(),
+            success: function (serverResponse) {
+              $("#table_edit_row").before(serverResponse);
+            },
+          });
+        });
+
+        $("button[button_type='delete']").click(function(e){
+          e.preventDefault();
+          console.log("clicked");
+          var ingredient = $(this).attr('button_name');
+          var parent = $(this).parent().parent();
+          $.ajax({
+            url: "/delete_ingredient",
+            method: "post",
+            data: {
+              csrfmiddlewaretoken: '{{csrf_token}}',
+              ingredient_name: ingredient,
+            },
+            success: function (serverResponse) {
+              parent.fadeOut("5000");
+              parent.remove();
+            },
+          });
+        })
+
+        function create_gallery(meals_available) {
+          let string_output = "";
+          for (let meal of meals_available) {
+            string_output += `<div class="flip-card" style="margin-left: 8%;"> <div class="flip-card-inner"> <div class="flip-card-front"> <img class="img-fluid" src="${meal.image}" alt="${meal.title} image" style="width: 300px; height: 250px"/> </div> <div class="flip-card-back"> <h4 class="mt-2">${meal.title}</h4><h5>Missing Ingredients: </h5>`
+            for(let ingredient of meal.missedIngredients){
+              string_output += `<span>${ingredient.name} | </span>`
+            }
+            string_output += " </ul> </div> </div> </div>"
+          }
+          $('#gallery').html(string_output)
+        }
+      });
+    </script>
+    {% load static %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/dashboard.css' %}"
+    />
+    <title>Recipe App</title>
+  </head>
+  <body>
+    <div class="container-fluid" style="background-color:#0c8672;">
+
+      <div class="container" style="background-color: white; height: 100%; min-height: 100vh;">
+        <div class="row">
+            <h1 class="col">Let's make something!</h1>
+            <a class="col-2" href="/accountpage">Account Page</a>
+            <a class="col-2" href="/logout">Log Out</a>
+        </div>
+        {% if messages %}
+        <div class="row">
+          {% for message in messages %}
+
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                  <p class="alert alert-danger" role="alert">{{ message }}</p>
+                {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                  <p class="alert alert-success" role="alert">{{ message }}</p>
+                {% endif %}
+
+            {% endfor %}
+        </div>
+        {% endif %}
+        <form id="tableForm" method="POST">
+          {% csrf_token %}
+          <h2>Hi {{logged_user.first_name}}! Here's what looks to be in your fridge:</h2>
+          <div style="height:25%; overflow:auto">
+            <table class="table table-striped mt-5">
+                <thead>
+                    <tr>
+                        <th>Ingredient Name</th>
+                        <th>Purchase Date</th>
+                        <th>Include In Search</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ingredient in logged_user.ingredients.all %}
+                        <tr ingredient_row="{{ingredient.name}}">
+                            <td>{{ingredient.name}}</td>
+                            <td>{{ingredient.purchase_date|date:"Y-m-d"}}</td>
+                            <td><input class="form-check-input" type="checkbox" name="{{ingredient.name}}"></td>
+                            <td><button class="btn btn-link" button_type='delete' button_name='{{ingredient.name}}'>Delete</button></td>
+                        </tr>
+                    {% endfor %}
+                    <tr id="table_edit_row">
+                        <td><input type="text" name="newIngredient" value=""></td>
+                        <td><input type="date" name="purchase_date"></td>
+                        <td>
+                            <button class="btn" type="submit" id='add_ingredient' formaction="/new_ingredient" formmethod="POST">Add Ingredient To List</button>
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+          <button class="btn btn-secondary" type="submit" id="mainFormSubmit">Find Recipes</button>
+      </form>
+      <h3 class="col mt-3" style="display:none">Here are some possible dishes you can make:</h3>
+      <!-- GALLERY CONTAINER  -->
+
+      <div id="gallery" class="container mt-5 mx-auto align-items-center" style="display:none">
+
+      </div>
+
+    </div>
+    </div>
+  </body>
+</html>

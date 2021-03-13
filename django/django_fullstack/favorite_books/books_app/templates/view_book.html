@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Favorite Books</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+<div class="container-fluid">
+      <div class="row">
+        <div class="col-10">
+          <h2>Welcome, {{ user.first_name }}!</h2>
+        </div>
+        <div class="col-2 font-weight-bold h5">
+          <a href="/log_out">Log Out</a>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-5 mt-5">
+          <h1 class="h5">{{current_book.title}}</h1>
+          <p class="h5">
+            Added by {{current_book.uploaded_by.first_name}} {{current_book.uploaded_by.last_name}}
+          </p>
+          <p class="h5">Added on {{current_book.uploaded_by.created_at}}</p>
+          <p class="h5">
+            Last updated on {{current_book.uploaded_by.updated_at}}
+          </p>
+          <p>
+            Description: {{ current_book.description }}
+          </p>
+        </div>
+        <!-- USERS WHO LIKE THE BOOK  -->
+        <div class="col-3">
+          <h2>Users Who Like This Book:</h2>
+          {% for user in current_book.users_who_like.all %}
+          <li class="ml-5 h4">{{ user.first_name }} {{ user.last_name }}</li>
+          {% endfor %}
+        <div class="mt-4">
+          {% if user in current_book.users_who_like.all %}
+          <a href="/remove_like_book/{{current_book.id}}">Remove from Favorites</a>
+          {% else %}
+          <a href="/like_book/{{current_book.id}}">Add to Favorites</a>
+          {% endif %}
+        </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+/* All Shows Page */
+
+#all_shows_title {
+  color: cadetblue;
+  text-align: start;
+  width: 50%;
+  font-size: 3rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#movie_table_container {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table {
+  font-size: 1.5rem;
+  border-collapse: collapse;
+}
+
+td, th {
+  padding: 15px;
+  border: 2px solid black;
+}
+
+#go_back{
+  width: 50%;
+  font-size: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: end;
+}
+
+#add_show_link{
+  text-align: start;
+  width: 50%;
+  font-size: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
